@@ -1,0 +1,36 @@
+<extend name="base/base" />
+<block name="title"><title>{$one.dname}年级分析</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<caption class="text-center h3">{$one.dname}-年级分析</caption>
+		<thead>
+			<tr>
+				<th>年级</th>
+				<th>总评价数</th>
+				<volist name="one['choices']" id="vo">
+					<th>{$vo} / 率</th>
+				</volist>
+			</tr>
+		</thead>
+		<tbody>
+			<php>$num = count($one['choices']) + 1;</php>
+			<volist name="one['grades']" id="grade" key="index">
+				<tr>
+					<td>{$grade}</td>
+					<td>
+						<a href="{:U('comment/everyone',array('did'=>$one['did'],'grade'=>$index))}" target="_blank">{$list[$index-1]['total']}</a>
+					</td>
+					<php>
+						for($k=1;$k<$num;$k++){
+							echo '<td>'.$list[$index-1]['choicenum'.$k].' / '.(round($list[$index-1]['choicenum'.$k]*100/$list[$index-1]['total'],2)).'%</td>';
+						}
+					</php>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+
+</block>

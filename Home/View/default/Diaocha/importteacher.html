@@ -1,0 +1,47 @@
+<extend name="base/base" />
+<block name="title"><title>导入教师信息</title></block>
+
+<block name="content">
+<div id="content">
+	<form class="form-horizontal top10" action="{:U(ACTION_NAME)}" method="post" enctype="multipart/form-data">
+		<div class="container-fluid">
+			<input type="hidden" name="did" value="{$did}" />
+			<div class="form-group">
+				<label class="col-sm-2 control-label">导入数据</label>
+				<div class="col-sm-9">
+					<input type="file" name="excel" class="form-control" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+				</div>
+			</div>
+			
+			<include file='default/base/include/submit_button' />
+			<div class="row">
+				<div class="col-sm-10 col-sm-push-1">
+					<a href="{:U('index')}" class="btn btn-info btn-block">返回</a>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<table class="table table-bordered table-striped table-hover" id="import_page_table">
+		<caption class="text-center h3">请严格按照以下表格的结构和顺序调整你的电子表格！</caption>
+		<thead>
+			<tr>
+				<th>年级</th>
+				<th>学科</th>
+				<th>姓名</th>
+				<th>班级</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="tlist" id="vo">
+				<tr>
+					<td>{$vo.grade}</td>
+					<td>{$vo.subject}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.classes}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+</block>

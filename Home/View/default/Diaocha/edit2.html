@@ -1,0 +1,116 @@
+<extend name="base/base" />
+<block name="title"><title>修改调查</title></block>
+<block name="content">
+<div id="content">
+	<form action="{:U(ACTION_NAME)}" method="post" class="form-horizontal">
+		<input type="hidden" name="did" value="{$one.did}" />
+		<div class="form-group">
+			<label class="col-sm-2 control-label">标题</label>
+			<div class="col-sm-9">
+				<input type="text" name="dname" required class="form-control" value="{$one.dname}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">开始页面</label>
+			<div class="col-sm-9">
+				<!-- 定义编辑器 -->
+				<script id="begininfo" name="begininfo" type="text/plain" style="width:800px;height:300px;">{$one.begininfo}</script>
+				<!-- 导入Ueditor文件  -->
+				<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+				
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue = UE.getEditor('begininfo');
+				</script>
+			</div>
+		</div>
+		
+	<if condition="$one['dstatus'] eq 0">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				年级选项
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="grades" required class="form-control" value="{$one.grades}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				班级列表
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="classes" required class="form-control" value="{$one.classes}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				<a title="格式：问题1-选项1-选项2|问题2-选项1-选项2……">其他信息</a>
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="otherinfo" class="form-control" value="{$one.otherinfo}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">班主任调查</label>
+			<div class="col-sm-9">
+				<input type="text" name="banzhuren" required class="form-control" value="{$one.banzhuren}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">调查学科</label>
+			<div class="col-sm-9">
+				<input type="text" name="subjects" required class="form-control" value="{$one.subjects}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">问卷选项</label>
+			<div class="col-sm-9">
+				<input type="text" name="choices" required class="form-control" value="{$one.choices}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">补充意见</label>
+			<div class="col-sm-9">
+				<select name="addcomment" required class="form-control">
+					<option value="1">允许</option>
+					<option value="0">禁止</option>
+				</select>
+			</div>
+		</div>
+	</if>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">结束信息</label>
+			<div class="col-sm-9">
+				<!-- 定义编辑器 -->
+				<script id="endinfo" name="endinfo" type="text/plain" style="width:800px;height:300px;">{$one.endinfo}
+				</script>
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue = UE.getEditor('endinfo');
+				</script>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">间隔秒数</label>
+			<div class="col-sm-9">
+				<input type="number" name="retime" required class="form-control" value="{$one.retime}" />
+			</div>
+		</div>
+
+		<include file='default/base/include/submit_button' />
+		<include file='default/base/include/back_button' />
+
+	</form>
+</div>
+
+</block>

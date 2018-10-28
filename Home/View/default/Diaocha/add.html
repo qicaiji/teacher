@@ -1,0 +1,108 @@
+<extend name="base/base" />
+<block name="title"><title>创建调查</title></block>
+<block name="content">
+<div id="content">
+	<form action="{:U(ACTION_NAME)}" method="post" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">标题</label>
+			<div class="col-sm-9">
+				<input type="text" name="dname" required class="form-control" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">开始页面</label>
+			<div class="col-sm-9">
+				<!-- 导入Ueditor文件  -->
+				<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+				<script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.js"></script>
+				<!-- 定义编辑器 -->
+				<script id="begininfo" name="begininfo" type="text/plain" style="width:800px;height:300px;">欢迎页面，说明信息
+				</script>
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue = UE.getEditor('begininfo');
+				</script>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				年级选项
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="grades" required class="form-control" value="初一-初二-初三-高一-高二-高三" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				班级列表
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="classes" required class="form-control" value="1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">班主任</label>
+			<div class="col-sm-9">
+				<input type="text" name="banzhuren" required class="form-control" value="满意-较满意-不满意" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				<a title="每个学科-隔开">调查学科</a>
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="subjects" required class="form-control" value="语文-数学-英语-物理-化学-生物-政治-历史-地理-音乐-体育-美术-信息技术-通用技术-心理-地方课" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				<a title="每个选项-隔开">调查选项</a>
+			</label>
+			<div class="col-sm-9">
+				<input type="text" name="choices" required class="form-control" value="满意-较满意-不满意" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">补充意见</label>
+			<div class="col-sm-9">
+				<select name="addcomment" required class="form-control">
+					<option value="1">允许</option>
+					<option value="0" selected>禁止</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">结束信息</label>
+			<div class="col-sm-9">
+				<!-- 定义编辑器 -->
+				<script id="endinfo" name="endinfo" type="text/plain" style="width:800px;height:300px;">{$one.endinfo}
+				</script>
+				<!-- 实例化编辑器 -->
+				<script type="text/javascript">
+					var ue = UE.getEditor('endinfo');
+				</script>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">间隔秒数</label>
+			<div class="col-sm-9">
+				<input type="number" name="retime" required class="form-control" value="180" />
+			</div>
+		</div>
+
+		<include file='default/base/include/submit_button' />
+		<include file='default/base/include/back_button' />
+
+	</form>
+</div>
+
+</block>

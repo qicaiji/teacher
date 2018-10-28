@@ -1,0 +1,22 @@
+<extend name="base/base" />
+<block name="title"><title>修改问卷</title></block>
+<block name="content">
+<div id="content">
+	<form action="{:U(ACTION_NAME)}" method="post" class="form-horizontal">
+		<input type="hidden" name="did" value="{$did}" />
+		<volist name="one" id="v">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">{$key}</label>
+				<div class="col-sm-9">
+					<input type="text" name="{$key}" class="form-control" value="{$v}" />
+				</div>
+			</div>
+		</volist>
+
+		<include file='default/base/include/submit_button' />
+		<include file='default/base/include/back_button' />
+
+	</form>
+</div>
+
+</block>

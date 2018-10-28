@@ -1,0 +1,35 @@
+<extend name="base/base" />
+<block name="title"><title>调查分析</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<thead>
+			<tr>
+				<th>标题</th>
+				<th>个人分析</th>
+				<th>备课组</th>
+				<th>教研组</th>
+				<th>年级分析</th>
+				<th>班主任</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="dlist" id="vo">
+				<tr>
+					<td>{$vo.dname} 
+						<a href="{:U('compute',array('did'=>$vo['did']))}">[计算]</a>
+					</td>
+					<td><a href="{:U('showperson',array('did'=>$vo['did']))}">查看</a></td>
+					<td><a href="{:U('showbeikezu',array('did'=>$vo['did']))}">查看</a></td>
+					<td><a href="{:U('showsubjects',array('did'=>$vo['did']))}">查看</a></td>
+					<td><a href="{:U('showgrade',array('did'=>$vo['did']))}">查看</a></td>
+					<td><a href="{:U('showbanzhuren',array('did'=>$vo['did']))}">查看</a></td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="text-center">{$page}</div>
+</div>
+
+</block>

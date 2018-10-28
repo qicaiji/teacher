@@ -1,0 +1,12 @@
+<div id="header">
+	<if condition="session('uid') gt 0">
+		<div id="userInfo">
+			用户：{:session('username')} | <a href="{:U('login/logout')}">退出</a>
+		</div>
+	<else />
+		<div id="userInfo">
+			<a href="{:U('login/index')}">登陆</a>
+		</div>
+	</if>
+	<div id="logo"><a href="{:U('diaocha/index')}">教师满意率评价系统</a></div>
+</div>

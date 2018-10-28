@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<load href="__PUBLIC__/css/bootstrap.min.css" />
+	<load href="__PUBLIC__/css/teacher.css" />
+	<title>隆昌二中教师评价系统</title>
+	<style>
+		#dname{ background:url(__PUBLIC__/css/image/head.jpg) repeat-x #fff; }
+	</style>
+</head>
+<body>
+
+<div id="content" >
+	<div class="text-center h2 dname" id="dname">{$one.dname}</div>
+	<div class="index_content top10 info">{$one.endinfo}</div>
+	<div class="container-fluid bottom10 top10">
+		<div class="row bottom10">
+			<div class="col-sm-4 col-sm-push-4">
+				<a href="{:U('beginlook?did='.$one['did'])}" class="btn btn-info btn-block">继续参与调查</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file='base/footer' />
+</body>
+</html>

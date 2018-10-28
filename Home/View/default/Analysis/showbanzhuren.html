@@ -1,0 +1,57 @@
+<extend name="base/base" />
+<block name="title"><title>{$one.dname}-班主任分析</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<caption class="text-center h3">{$one.dname} - 班主任分析<br />
+			<a href="{:U('?all=1',I('param.'))}">[展开]</a>
+		</caption>
+		<thead>
+			<tr>
+				<th>年级-班级</th>
+				<th>总数</th>
+				<if condition="I('get.all') eq 1">
+					<volist name="one['banzhuren']" id="vo">
+						<th>{$vo}</th>
+					</volist>
+					<volist name="one['banzhuren']" id="vo">
+						<th>{$vo}率</th>
+					</volist>
+				<else />
+					<volist name="one['banzhuren']" id="vo">
+						<th>{$vo} / 率</th>
+					</volist>
+				</if>
+			</tr>
+		</thead>
+		<tbody>
+			<php>$num = count($one['banzhuren']) + 1;</php>
+			<foreach name="list" item="vo" key="gc">
+				<php>$g_c = explode('_',$gc);</php>
+				<tr>
+					<td>{$gc}</td>
+					<td>
+						<a href="{:U('comment/everyone',array('did'=>$one['did'],'grade'=>$g_c[0],'classes'=>$g_c[1]))}" target="_blank">{$vo.total}</a>
+					</td>
+					<php>
+						if(I('get.all') == 1){
+							for($k=1;$k<$num;$k++){
+								echo '<td>'.(isset($vo['choice'.$k])?$vo['choice'.$k]:0).'</td>';
+							}
+							for($k=1;$k<$num;$k++){
+								echo '<td>'.round($vo['choice'.$k]*100/$vo['total'],2).'%</td>';
+							}
+						}else{
+							for($k=1;$k<$num;$k++){
+								echo '<td>'.(isset($vo['choice'.$k])?$vo['choice'.$k]:0).' / '.round($vo['choice'.$k]*100/$vo['total'],2).'%</td>';
+							}
+						}
+					</php>
+				</tr>
+			</foreach>
+		</tbody>
+	</table>
+</div>
+
+</block>

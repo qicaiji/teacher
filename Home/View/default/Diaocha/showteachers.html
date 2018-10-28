@@ -1,0 +1,35 @@
+<extend name="base/base" />
+<block name="title"><title>已导入的教师信息</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>年级</th>
+				<th>学科</th>
+				<th>姓名</th>
+				<th>班级</th>
+				<th>管理</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="tlist" id="vo">
+				<tr>
+					<td><a title="{$vo.fullname}">{$vo.tid}</a></td>
+					<td>{$vo.grade}</td>
+					<td>{$vo.subject}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.classes}</td>
+					<td>
+						<a href="{:U('editteacher',array('did'=>I('did'),'tid'=>$vo['tid']))}">编辑</a> | 
+						<a href="{:U('delteacher',array('did'=>I('did'),'tid'=>$vo['tid']))}" class="del">删除</a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+
+</block>

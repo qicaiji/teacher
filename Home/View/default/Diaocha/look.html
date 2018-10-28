@@ -1,0 +1,170 @@
+<extend name="base/base" />
+<block name="title"><title>{$one.dname}</title></block>
+<block name="content">
+<div id="content" style="font-size:1.2em;line-height:1.4em;">
+	<div class="text-center h2 top10" style="padding-top:1em;">{$one.dname}</div>
+	<form action="{:U('comment/add')}" method="post" class="form-horizontal">
+		<input type="hidden" name="did" value="{$one.did}" />
+		<div class="form-group">
+			<label class="col-sm-2 control-label">年级</label>
+			<div class="col-sm-9">
+				<volist name="one['grades']" id="grade" key="g">
+					<label class="radio-inline">
+						<input type="radio" name="grade" value="{$g}">{$grade}
+					</label>
+				</volist>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">班级</label>
+			<div class="col-sm-9">
+				<select name="classes" required class="form-control">
+					<option value="0">请选择</option>
+					<volist name="one['classes']" id="cla" key="c">
+						<option value="{$c}">{$cla}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">班主任</label>
+			<if condition="$one['addcomment'] eq 1">
+				<div class="col-sm-7">
+			<else />
+				<div class="col-sm-9">
+			</if>
+					<volist name="one['banzhuren']" id="choice" key="b">
+						<label class="radio-inline">
+							<input type="radio" name="banzhuren" value="{$b}">{$choice}
+						</label>
+					</volist>
+				</div>
+				<if condition="$one['addcomment'] eq 1">
+					<label class="col-sm-2 control-label">
+						<div class="text-left"><input type="checkbox" value="banzhuren" /> 补充意见</div>
+					</label>
+				</if>
+		</div>
+		<div class="form-group addbanzhuren hidden">
+			<div class="col-sm-7 col-sm-push-2">
+				<input type="text" name="banzhurenadd" class="form-control" placeholder="不记名评价，请尊重事实，如实填写！" />
+			</div>
+		</div>
+		
+		<volist name="one['subjects']" id="subject" key="i">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">{$subject}</label>
+				<if condition="$one['addcomment'] eq 1">
+					<div class="col-sm-7">
+				<else />
+					<div class="col-sm-9">
+				</if>
+					<volist name="one['choices']" id="v" key="c">
+						<label class="radio-inline">
+							<input type="radio" name="subject{$i}" value="{$c}">{$v}
+						</label>
+					</volist>
+					<if condition="$i gt 3">
+						<label class="radio-inline">
+							<input type="radio" name="subject{$i}" value="-1">无此课程
+						</label>
+					</if>
+					
+					</div>
+					<if condition="$one['addcomment'] eq 1">
+						<label class="col-sm-2 control-label">
+							<div class="text-left"><input type="checkbox" value="subject{$i}" /> 补充意见</div>
+						</label>
+					</if>
+			</div>
+			
+			<div class="form-group addsubject{$i} hidden">
+				<div class="col-sm-7 col-sm-push-2">
+					<input type="text" name="subject{$i}add" class="form-control" placeholder="不记名评价，请尊重事实，如实填写！" />
+				</div>
+			</div>
+		</volist>
+		
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-push-1">
+				<a href="#" class="btn btn-info btn-block" id="check">检查并提交</a>
+			</div>
+		</div>
+		
+		<div class="top10 bottom10">&nbsp;</div>
+	</form>
+</div>
+</block>
+<block name="myscript">
+<script>
+	$(function(){
+		//补充意见
+		$('input[type=checkbox]').on('click',function(){
+			var i = $(this).val();
+			$('.add' + i).toggleClass('hidden');
+			
+		});
+		
+		//全部选择后才提交
+		$('#check').on('click',function(e){
+			e.preventDefault();
+			
+			//隐藏此按钮，防止重复提交
+			$('#check').addClass('hidden');
+			
+			//判断是否通过
+			var result = true;
+			
+			//获取所有的radio name作为数组，去重
+			var radio_list = [];
+			$.each($('input[type=radio]'),function(index,obj){
+				//获取对象的name
+				var radio_name = $(obj).attr("name");
+				
+				
+				if($.inArray(radio_name,radio_list) < 0){
+					radio_list[radio_list.length] = radio_name;
+				}
+			});
+			
+			//判断【单选按钮】是否选中
+			$.each(radio_list,function(index,name){
+				var obj = $('input[name='+name+']');
+				var x = $('input[name='+name+']:checked').val();
+				if(x == null){
+					if(result){		//只执行一次滚动
+						$("html,body").animate({scrollTop:obj.offset().top},1000);
+					}
+					obj.parent().parent().addClass('bg-danger');
+					result = false;
+				}else{
+					obj.parent().parent().removeClass('bg-danger');
+				}
+			});
+			
+			//判断【下拉列表】是否选中
+			var v = $('select option:selected').val();
+			if(v == "0"){
+				if(result){		//只执行一次滚动
+					$("html,body").animate({scrollTop:$('select option:selected').offset().top},1000);
+				}
+				$('select option:selected').parent().parent().addClass('bg-danger');
+				result = false;
+			}else{
+				$('select option:selected').parent().parent().removeClass('bg-danger');
+			}
+			
+			if(result){
+				$('form').submit();
+			}else{
+				//显示此按钮
+				$('#check').removeClass('hidden');
+				//alert('你还没有完成的选项！');
+			}
+		});
+	});
+	
+</script>
+</block>

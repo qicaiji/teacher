@@ -1,0 +1,42 @@
+<extend name="base/base" />
+<block name="title"><title>修改教师信息</title></block>
+<block name="content">
+<div id="content">
+	<form action="{:U(ACTION_NAME)}" method="post" class="form-horizontal">
+		<input type="hidden" name="did" value="{$did}" />
+		<input type="hidden" name="tid" value="{$one.tid}" />
+		<div class="form-group">
+			<label class="col-sm-2 control-label">年级</label>
+			<div class="col-sm-9">
+				<input type="text" name="grade" required class="form-control" value="{$one.grade}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">学科</label>
+			<div class="col-sm-9">
+				<input type="text" name="subject" required class="form-control" value="{$one.subject}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">姓名</label>
+			<div class="col-sm-9">
+				<input type="text" name="name" required class="form-control" value="{$one.name}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">任教班级</label>
+			<div class="col-sm-9">
+				<input type="text" name="classes" required class="form-control" value="{$one.classes}" />
+			</div>
+		</div>
+
+		<include file='default/base/include/submit_button' />
+		<include file='default/base/include/back_button' />
+
+	</form>
+</div>
+
+</block>

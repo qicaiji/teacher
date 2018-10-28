@@ -1,0 +1,168 @@
+<extend name="base/base" />
+<block name="title"><title>{$one.dname}</title></block>
+<block name="content">
+<div id="content">
+	<form action="{:U('comment/add')}" method="post" class="form-horizontal">
+		<input type="hidden" name="did" value="{$one.did}" />
+		<div class="h3 text-center">基本信息</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">年级</label>
+			<div class="col-sm-9">
+				<select name="grade" required class="form-control">
+					<option value="0">请选择</option>
+					<volist name="one['grades']" id="grade" key="g">
+						<option value="{$g}">{$grade}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">班级</label>
+			<div class="col-sm-9">
+				<select name="classes" required class="form-control">
+					<option value="0">请选择</option>
+					<volist name="one['classes']" id="cla" key="c">
+						<option value="{$c}">{$cla}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		
+		<notempty name="one['otherinfo']">
+			<volist name="one['otherinfo']" id="vo">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{$vo.question}</label>
+					<div class="col-sm-9">
+						<select name="otherinfo{$i}" required class="form-control">
+							<option value="0">请选择</option>
+							<foreach name="vo['choices']" item="v">
+								<option value="{$key+1}">{$v}</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+			</volist>
+		</notempty>
+		
+		<div class="h3 text-center">班主任工作</div>
+		<volist name="one['banzhuren']" id="vo">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">{$vo.question}</label>
+				<if condition="$one['addcomment'] eq 1">
+					<div class="col-sm-7">
+				<else />
+					<div class="col-sm-9">
+				</if>
+						<select name="banzhuren{$i}" required class="form-control">
+							<option value="0">请选择</option>
+							<foreach name="vo['choices']" item="v">
+								<option value="{$key+1}">{$v}</option>
+							</foreach>
+						</select>
+					</div>
+					<if condition="$one['addcomment'] eq 1">
+						<label class="col-sm-2 control-label">
+							<div class="text-left"><input type="checkbox" value="banzhuren{$i}" /> 补充意见</div>
+						</label>
+					</if>
+			</div>
+			<div class="form-group addbanzhuren{$i} hidden">
+				<div class="col-sm-7 col-sm-push-2">
+					<input type="text" name="banzhuren{$i}add" class="form-control" placeholder="不记名评价，请尊重事实，如实填写！" />
+				</div>
+			</div>
+		</volist>
+		
+		<div class="h3 text-center">学科调查</div>
+		<volist name="one['subjects']" id="subject">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">{$subject}</label>
+				<if condition="$one['addcomment'] eq 1">
+					<div class="col-sm-7">
+				<else />
+					<div class="col-sm-9">
+				</if>
+					<select name="subject{$i}" required class="form-control">
+						<option value="0">请选择</option>
+						<foreach name="one['choices']" item="choice">
+							<option value="{$key+1}">{$choice}</option>
+						</foreach>
+						<if condition="$i gt 3">
+							<option value="-1">无此课程</option>
+						</if>
+					</select>
+					</div>
+					<if condition="$one['addcomment'] eq 1">
+						<label class="col-sm-2 control-label">
+							<div class="text-left"><input type="checkbox" value="subject{$i}" /> 补充意见</div>
+						</label>
+					</if>
+			</div>
+			
+			<div class="form-group addsubject{$i} hidden">
+				<div class="col-sm-7 col-sm-push-2">
+					<input type="text" name="subject{$i}add" class="form-control" placeholder="不记名评价，请尊重事实，如实填写！" />
+				</div>
+			</div>
+		</volist>
+		
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-push-1">
+				<a href="#" class="btn btn-info btn-block" id="check">检查并提交</a>
+			</div>
+		</div>
+		
+		<div class="top10 bottom10">&nbsp;</div>
+	</form>
+</div>
+</block>
+<block name="myscript">
+<script>
+	$(function(){
+		//补充意见
+		$('input[type=checkbox]').on('click',function(){
+			var i = $(this).val();
+			$('.add' + i).toggleClass('hidden');
+			
+		});
+		
+		//全部选择后才提交
+		$('#check').on('click',function(e){
+			e.preventDefault();
+			
+			//隐藏此按钮，防止重复提交
+			$('#check').addClass('hidden');
+			
+			//判断是否通过
+			var result = true;
+			
+			$.each($('select'),function(index,obj){
+				//获取对象的name
+				var select_name = $(obj).attr("name");
+				//获取选择的值
+				var v = $('select[name=' + select_name + '] option:selected').val();
+				
+				if(v == "0"){
+					if(result){		//只执行一次滚动
+						$("html,body").animate({scrollTop:$(obj).offset().top},1000);
+					}
+					$(obj).parent().parent().addClass('bg-danger');
+					result = false;
+				}else{
+					$(obj).parent().parent().removeClass('bg-danger');
+				}
+			});
+			
+			if(result){
+				$('form').submit();
+			}else{
+				//显示此按钮
+				$('#check').removeClass('hidden');
+				//alert('你还没有完成的选项！');
+			}
+		});
+	});
+	
+</script>
+</block>

@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 全局定义 */
+body{
+	background:#99CC33 url(/thinkphp/teacher/Common/Common/css/image/bg3.jpg);
+	background-size:100%;
+	color:#222;font-size:16px;line-height:1.4em;
+} /*  99CC33  6CF849  */
+a{color:#222;}
+a:hover{text-decoration:none;color:#222;}
+td,th{text-align:center;}
+
+/* 头部用户登录信息 */
+#header{width:80%;margin:0 auto;background:rgba(153,204,51,0.5);}
+#userInfo{float:right;font-size:1.2em;line-height:2em;padding-right:1em;}
+#logo{font-size:2em;line-height:2em;padding-left:1em;}
+
+/* 菜单栏 */
+#menu{width:80%;background:rgba(153,204,51,0.2);margin:0 auto;}
+#menu li a{margin:0 5px;padding:0 10px;font-size:1.4em;line-height:2em;}
+#menu li a:hover{background:rgba(153,204,51,0.5);color:#444;}
+
+/* 主要内容区 */
+#content{width:80%; min-height:400px;background:rgba(238,238,238,0.8);margin:0 auto;}    /*  eee F3F3F3 */
+#content > form {padding-top:10px;}
+
+#footer{width:80%;margin:0 auto;line-height:2em;font-size:1.2em;}
+
+.top10{margin-top:10px;}
+.bottom10{margin-bottom:10px;}
+.index_content{ min-height:400px; }
+.info{ padding:1em; }
+.dname{
+	padding-top:1em;
+	padding-bottom:1em;
+	margin-top:0;
+	font-size:2.6em;
+	line-height:1.2em;
+}

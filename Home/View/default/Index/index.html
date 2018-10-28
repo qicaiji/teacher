@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<load href="__PUBLIC__/css/bootstrap.min.css" />
+	<load href="__PUBLIC__/css/teacher.css" />
+	<title>隆昌二中教师评价系统</title>
+	<style>
+		#dname{ background:url(__PUBLIC__/css/image/head.jpg) repeat-x #fff; }
+	</style>
+</head>
+<body>
+
+<div id="content" style="min-height:600px;">
+	<div class="pull-right"><a href="{:U('login/index')}" class="btn btn-default">登陆</a></div>
+	<div class="text-center dname" id="dname">隆昌二中教师评价系统</div>
+	<table class="table table-bordered border-striped table-hover">
+		<volist name="dlist" id="vo">
+			<tr>
+				<td>
+					<a href="{:U('beginlook?did='.$vo['did'])}" >{$vo.dname}</a>
+				</td>
+			</tr>
+		</volist>
+	</table>
+</div>
+<include file='base/footer' />
+</body>
+</html>

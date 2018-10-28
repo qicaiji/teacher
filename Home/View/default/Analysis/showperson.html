@@ -1,0 +1,62 @@
+<extend name="base/base" />
+<block name="title"><title>{$one.dname}-教师分析</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<caption class="text-center h3">{$one.dname} - 教师分析<br />
+			<a href="{:U('?all=1',I('param.'))}">[展开]</a><a href="{:U('?orderby=1',I('param.'))}">[原顺序]</a>
+		</caption>
+		<thead>
+			<tr>
+				<th>年级</th>
+				<th>学科</th>
+				<th>姓名</th>
+				<th>班级</th>
+				<th>总数</th>
+				<if condition="I('get.all') eq 1">
+					<volist name="one['choices']" id="vo">
+						<th>{$vo}</th>
+					</volist>
+					<volist name="one['choices']" id="vo">
+						<th>{$vo}率</th>
+					</volist>
+				<else />
+					<volist name="one['choices']" id="vo">
+						<th>{$vo} / 率</th>
+					</volist>
+				</if>
+			</tr>
+		</thead>
+		<tbody>
+			<php>$num = count($one['choices']) + 1;</php>
+			<volist name="list" id="vo">
+				<tr>
+					<td>{$vo.grade}</td>
+					<td>{$vo.subject}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.classes}</td>
+					<td>
+						<a href="{:U('comment/everyone',array('did'=>$one['did'],'grade'=>$vo['grade'],'classes'=>$vo['classes']))}" target="_blank">{$vo.total}</a>
+					</td>
+					<php>
+						if(I('get.all') == 1){
+							for($k=1;$k<$num;$k++){
+								echo '<td>'.$vo['choicenum'.$k].'</td>';
+							}
+							for($k=1;$k<$num;$k++){
+								echo '<td>'.$vo['choicepercent'.$k].'%</td>';
+							}
+						}else{
+							for($k=1;$k<$num;$k++){
+								echo '<td>'.$vo['choicenum'.$k].' / '.$vo['choicepercent'.$k].'%</td>';
+							}
+						}
+					</php>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+
+</block>

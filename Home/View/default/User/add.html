@@ -1,0 +1,47 @@
+<extend name="base/base" />
+<block name="title"><title>添加用户</title></block>
+<block name="content">
+<div id="content">
+	<form action="{:U(ACTION_NAME)}" method="post" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">用户名</label>
+			<div class="col-sm-9">
+				<input type="text" name="username" required class="form-control" placeholder="请输入用户名">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label">密码</label>
+			<div class="col-sm-9">
+				<input type="password" name="password" required class="form-control" placeholder="请输入密码">	
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">重复密码</label>
+			<div class="col-sm-9">
+				<input type="password" name="password2" required class="form-control" placeholder="请输入密码">	
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">用户组</label>
+			<div class="col-sm-9">
+				<input type="number" name="group" class="form-control" >
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label">状态</label>
+			<div class="col-sm-9">
+				<input type="number" name="status" required class="form-control" value="1">
+			</div>
+		</div>
+
+		<include file='default/base/include/submit_button' />
+		<include file='default/base/include/back_button' />
+
+	</form>
+</div>
+
+</block>

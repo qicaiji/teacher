@@ -1,0 +1,57 @@
+<extend name="base/base" />
+<block name="title"><title>调查管理</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<thead>
+			<tr>
+				<th>标题</th>
+				<th>状态</th>
+				<th>教师</th>
+				<th>间隔(s)</th>
+				<th>管理</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="dlist" id="vo">
+				<tr>
+					<td>
+						<a href="{:U('beginlook?did='.$vo['did'])}" target="_blank" title="{:date('Y年m月d日 H:i',$vo['createtime'])}">{$vo.dname}</a>
+					</td>
+					<td>
+						<switch name="vo['dstatus']">
+							<case value="0">未发布
+								<a href="{:U('setstatus',array('did'=>$vo['did'],'s'=>1))}">[开始]</a>
+							</case>
+							<case value="1">调查中
+								<a href="{:U('setstatus',array('did'=>$vo['did'],'s'=>2))}">[停止]</a>
+							</case>
+							<case value="2">已停止
+								<a href="{:U('setstatus',array('did'=>$vo['did'],'s'=>1))}">[继续]</a> | 
+								<a href="{:U('setstatus',array('did'=>$vo['did'],'s'=>0))}" class="del">[还原]</a>
+							</case>
+							<default />出错啦！
+						</switch>
+					</td>
+					<td>
+					<if condition="$vo['dstatus'] neq 0">
+						<a href="{:U('showteachers',array('did'=>$vo['did']))}">{$vo.teachers}</a> 
+						[<a href="{:U('importteacher',array('did'=>$vo['did']))}">导入</a>] 
+						[<a href="{:U('delallteacher',array('did'=>$vo['did']))}" class="del">清空</a>]
+					</if>
+					</td>
+					<td>{$vo.retime}</td>
+					<td>
+						<a href="{:U('edit',array('did'=>$vo['did']))}">编辑</a> | 
+						<a href="{:U('del',array('did'=>$vo['did']))}" class="del">删除</a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="text-center">{$page}</div>
+	<include file='default/base/include/add_button' />
+</div>
+
+</block>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<load href="__PUBLIC__/css/bootstrap.min.css" />
+		<load href="__PUBLIC__/css/teacher.css" />
+		<title>登陆</title>
+	</head>
+
+	<body>
+		<div id="content">
+			<form id="login_form" action="{:U(ACTION_NAME)}" class="form-horizontal top10 " style="padding-top:3em;" method="post">
+				<div class="container-fluid">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-4 text-right">用户名</label>
+						<div class="col-xs-7 col-sm-4 input_text">
+							<input type="text" name="username" required class="form-control bottom10" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-4 text-right">密码</label>
+						<div class="col-xs-7 col-sm-4 input_text">
+							<input type="password" name="password" required class="form-control bottom10" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-4 col-sm-4 text-right"></div>
+						<div class="col-xs-7 col-sm-4 input_text bottom10">
+							<img src="{:U('verifyImg')}" id="verifyImg" title="点击刷新" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-4 text-right">验证码</label>
+						<div class="col-xs-7 col-sm-4 input_text">
+							<input type="number" name="verifyImg" required class="form-control bottom10" placeholder="点击图片刷新验证码" />
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<div class="col-xs-4 col-sm-4 text-right"></div>
+						<div class="col-xs-7 col-sm-4 input_text bottom10">
+							<label>
+								<input type="checkbox" name="save_login" value="yes" checked style="width:15px;height:15px;" /> 下次自动登陆
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-xs-4 col-sm-4"></div>
+						<div class="col-xs-7 col-sm-4">
+							<input type="submit" class="btn btn-primary btn-block form-control bottom10" value="登陆" />
+						</div>
+					</div>
+					
+				</div>
+
+			</form>
+
+		</div>
+		<include file='base/footer' />
+		<load href="__PUBLIC__/js/jquery-2.2.3.min.js" />
+		</script>
+		<script>
+			//点击刷新验证码
+			$("#verifyImg").on("click", function() {
+				$("#verifyImg").attr("src", "./verifyImg");
+			});
+		</script>
+	</body>
+
+</html>

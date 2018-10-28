@@ -1,0 +1,51 @@
+<extend name="base/base" />
+<block name="title"><title>调查详情</title></block>
+
+<block name="content">
+<div id="content" style="font-size:0.8em;">
+	<table class="table table-bordered border-striped table-hover">
+		<caption class="h3 text-center">{$one.dname}</caption>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>时间</th>
+				<!-- <th>IP</th> -->
+				<th>年级</th>
+				<th>班级</th>
+				<th>班主任</th>
+				<volist name="one['subjects']" id="vo">
+					<th>{$vo}</th>
+				</volist>
+				<th>管理</th>
+			
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="data" id="vo">
+				<tr>
+					<td>{$key+1}</td>
+					<td><a title="{:date('Y-m-d H:i',$vo['createtime'])}">{:date('H:i',$vo['createtime'])}</a></td>
+					<!-- <td>{$vo.ip}</td> -->
+					<td>{$vo.grade}</td>
+					<td>{$vo.classes}</td>
+					<td>{$vo.banzhuren}</td>
+					
+					<for start="0" end="count($one['subjects'])">
+						<php>$str = 'subject'.($i+1);</php>
+						<td>{$vo[$str]}</td>
+					</for>
+					<td>
+						<a href="{:U('edit',array('did'=>I('did'),'sid'=>$vo['sid']))}">修改</a> | 
+						<a href="{:U('setenabled',array('did'=>I('did'),'sid'=>$vo['sid']))}">
+							<if condition="$vo['enabled'] eq 1">无效
+							<else /><span style="background:yellow;">生效</span>
+							</if>
+						</a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+
+</block>

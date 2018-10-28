@@ -1,0 +1,33 @@
+<extend name="base/base" />
+<block name="title"><title>用户管理</title></block>
+
+<block name="content">
+<div id="content">
+	<table class="table table-bordered border-striped table-hover">
+		<thead>
+			<tr>
+				<th>用户名</th>
+				<th>组</th>
+				<th>状态</th>
+				<th>管理</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="ulist" id="vo">
+				<tr>
+					<td>{$vo.username}</td>
+					<td>{$vo.group}</td>
+					<td>{$vo.status}</td>
+					<td>
+						<a href="{:U('edit',array('uid'=>$vo['uid']))}">编辑</a> | 
+						<a href="{:U('del',array('uid'=>$vo['uid']))}" class="del">删除</a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="text-center">{$page}</div>
+	<include file='default/base/include/add_button' />
+</div>
+
+</block>
